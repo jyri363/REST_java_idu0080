@@ -1,0 +1,17 @@
+CREATE DATABASE `paintings`; 
+USE `paintings`;
+
+CREATE TABLE `painting` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `artname` text,
+  `techniques` text,
+  `author` text,
+  `year` decimal(4,0) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+
+
+INSERT INTO painting ( id, artname, techniques, author, year ) VALUES ( null, 'The Hiding Place', 'oil', 'Joshua Smith', 2002 );
+INSERT INTO painting ( id, artname, techniques, author, year ) VALUES ( null, 'Mona Lisa', 'oil', 'Leonardo da Vinci', 1506 );
+
