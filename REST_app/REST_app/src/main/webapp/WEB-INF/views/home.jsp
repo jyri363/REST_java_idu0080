@@ -13,9 +13,9 @@
     </head>
     <body>
         <h1>REST World!</h1>
-        <a href=${uri}>Autoleht</a>
+        <a href=${uri}>Maalid</a>
       <form>
-      <input type=button value="Koik autod" onClick="javascript:get_cars()">
+      <input type=button value="Koik maalid" onClick="javascript:get_paintings()">
       
       
       <br><br>
@@ -24,16 +24,20 @@
       <tr><td bgcolor=ffffff><div id="msg_text"> </div></td></tr>
       </table> 
       <br>
-      <div id="one_car"></div> 
+      <div id="one_painting"></div> 
       <br><br>
-      <div id="cars_table"></div>
+      <div id="paintings_table"></div>
       <br> 
       
       <br><br>
-      
-	  
-	  
+      <table bgcolor=eeeeee><tr><td>Lisamine:</td></tr>
+		<tr><td>Maal:</td><td><input type=text name=new_painting_artname value=''></td></tr>
+      	<tr><td>Autor:</td><td><input type=text name=new_painting_author value=''></td></tr>
+      	<tr><td>Tehnima:</td><td><input type=text name=new_painting_techniques value=''></td></tr>
+      	<tr><td>Aasta:</td><td><input type=text name=new_painting_year value=''></td></tr>
+      	<tr><td><input type=button value="lisa" onClick="javascript:add_painting()"></td></tr>
+	</table>	  
 	  </form>
-	  
+
     </body>
 </html>

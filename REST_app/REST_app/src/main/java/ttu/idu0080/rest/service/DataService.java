@@ -32,25 +32,25 @@ public class DataService  {
 	}
 
 
-	public Car getCarById(long id)  {
+	public Painting getPaintingById(long id)  {
 
 
-		Car node = null;
+		Painting node = null;
 		try {
 
 
 			Query q =  em
 					.createQuery(
-							"select c from Car c where c.id = :id")
+							"select c from Painting c where c.id = :id")
 							.setParameter("id", id);
-			node = (Car) q.getSingleResult();
+			node = (Painting) q.getSingleResult();
 
 
 		}
 
 		catch(Exception ex)
 		{
-			System.out.println("DataService.getCarById():"+ ex.getMessage());
+			System.out.println("DataService.getPaintingById():"+ ex.getMessage());
 		
 		}
 
@@ -61,38 +61,38 @@ public class DataService  {
 	
 	
 	
-	public List<Car> getAllCars()  {
+	public List<Painting> getAllPaintings()  {
 
 
-		List<Car> car_list = null;
+		List<Painting> painting_list = null;
 		try {
 
 
 			Query q =  em
 					.createQuery(
-							"select c from Car c ");
-			car_list = (List<Car>)  q.getResultList();
+							"select c from Painting c ");
+			painting_list = (List<Painting>)  q.getResultList();
 
 
 		}
 
 		catch(Exception ex)
 		{
-			System.out.println("DataService.getAllCars():"+ ex.getMessage());
+			System.out.println("DataService.getAllPaintings():"+ ex.getMessage());
 		}
 
-		return car_list;
+		return painting_list;
 	}
 
 	
 	
-	public Car update(Car car)  {
+	public Painting update(Painting painting)  {
 
 
-		System.out.println("car update , car model: " + car.getModel());
+		System.out.println("painting update , painting author: " + painting.getAuthor());
 		try {
 
-			em.merge(car);
+			em.merge(painting);
 			em.flush();
 
 		}
@@ -102,17 +102,17 @@ public class DataService  {
 			System.out.println("DataService.update():"+ ex.getMessage());
 		}
 
-		return car;
+		return painting;
 	}
 
 	
-	public Car save(Car car) {
+	public Painting save(Painting painting) {
 
-		System.out.println("new car insert , car model: " + car.getModel());
+		System.out.println("new painting insert , painting author: " + painting.getAuthor());
 
 		try {
 			
-			em.persist(car);
+			em.persist(painting);
 
 
 		}
@@ -122,7 +122,7 @@ public class DataService  {
 			System.out.println("DataService.save():"+ ex.getMessage());
 		}
 
-		return car;
+		return painting;
 	}
 	
 	public void delete(long id) {
@@ -131,8 +131,8 @@ public class DataService  {
 
 		try {
 			
-	          Car car =  em.find(Car.class,id);
-	          em.remove(car);
+	          Painting painting =  em.find(Painting.class,id);
+	          em.remove(painting);
 
 
 		}
@@ -145,28 +145,28 @@ public class DataService  {
 
 	}
 	
-	public  List<Car> searchByModel(String s_model)  {
+	public  List<Painting> searchByAuthor(String s_author)  {
 
-		List<Car> cars = null;
+		List<Painting> paintings = null;
 
 		try {
 
-			String sql = "from Car c where upper(c.model) like upper(:model) order by c.make";
+			String sql = "from Painting c where upper(c.author) like upper(:author) order by c.artname";
             
 			Query q = em.createQuery(sql);	
-			q.setParameter("model", s_model+"%") ;                  
-			cars =  (List<Car>) q.getResultList();	 				
-                        System.out.println("Otsingu tulemusi:" + cars.size());
+			q.setParameter("author", s_author+"%") ;                  
+			paintings =  (List<Painting>) q.getResultList();	 				
+                        System.out.println("Otsingu tulemusi:" + paintings.size());
 
 		}
 
 		catch(Exception ex)
 		{
-			System.out.println("DataService.searchByModel():" + ex.getMessage());
+			System.out.println("DataService.searchByAuthor():" + ex.getMessage());
 
 		}
 
-		return cars;
+		return paintings;
 	}
 	
 	

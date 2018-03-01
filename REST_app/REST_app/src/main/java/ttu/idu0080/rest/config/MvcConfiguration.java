@@ -42,7 +42,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
 
 	private static final String PROPERTY_NAME_DATABASE_DRIVER = "com.mysql.jdbc.Driver"; //"org.postgresql.Driver";
 	private static final String PROPERTY_NAME_DATABASE_PASSWORD = "1234";
-	private static final String PROPERTY_NAME_DATABASE_URL = "jdbc:mysql://localhost:3306/cars"; //"jdbc:postgresql://imbi.ld.ttu.ee/REST";
+	private static final String PROPERTY_NAME_DATABASE_URL = "jdbc:mysql://localhost:3306/paintings"; //"jdbc:postgresql://imbi.ld.ttu.ee/REST";
 	private static final String PROPERTY_NAME_DATABASE_USERNAME = "root";
 			//"postgres";
 

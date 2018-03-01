@@ -15,17 +15,17 @@
         <h1>Hello World!</h1>
         <p>This is the homepage!</p>
         
-        <c:if test="${not empty cars}">
+        <c:if test="${not empty paintings}">
 <table class="normal-table">
   <thead>
       <tr>
-	   <th>Autod</th>
+	   <th>Maalid</th>
 	   <th></th>
 	   </tr></thead> 
 	   <tbody> 
-	   <c:forEach var="car" items="${cars}">	   
-	   	   <tr><td><a href="<c:url  value="/service/car/${car.id}">
-						</c:url>">${car.make} ${car.model} </a></td><td></td></tr>
+	   <c:forEach var="painting" items="${paintings}">	   
+	   	   <tr><td><a href="<c:url  value="/service/painting/${painting.id}">
+						</c:url>">${painting.author} ${painting.artname} </a></td><td></td></tr>
 						
 	   </c:forEach>
 	   </tbody>

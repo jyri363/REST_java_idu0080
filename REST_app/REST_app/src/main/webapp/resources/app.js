@@ -1,25 +1,26 @@
-var car_from_server;
+var painting_from_server;
 
-function Car()
+
+function Painting()
 {
-this.make;
-this.model;
-this.series;
+this.author;
+this.artname;
+this.techniques;
 this.year;
 }
 
-function get_cars()
+function get_paintings()
 {
 
  
 $.ajaxSetup({ cache: false });
 $.ajax({
 
-    url: 'service/cars' ,
+    url: 'service/paintings' ,
     type: "GET",
     dataType: 'json',
     success: function(data) {
-    	display_cars(data);
+    	display_paintings(data);
         console.log(JSON.stringify(data));
 
     }
@@ -29,19 +30,19 @@ $.ajax({
 }
 
 
-function get_car(id)
+function get_painting(id)
 {
 
  
 $.ajaxSetup({ cache: false });
 $.ajax({
 
-    url: 'service/car/' + id ,
+    url: 'service/painting/' + id ,
     type: "GET",
     dataType: 'json',
     success: function(data) {
-    	car_from_server = data;
-    	display_car(data);
+    	painting_from_server = data;
+    	display_painting(data);
         console.log(JSON.stringify(data));
 
     }
@@ -50,20 +51,34 @@ $.ajax({
 
 }
 
+function delete_painting(id)
+{
+	$.ajaxSetup({ cache: false });
+	$.ajax({
+		url: 'service/painting/' + id,
+		type: "DELETE",
+		contentType: 'application/json',
+		success: function(data) {
+			show_message("Kustutatud");
+			get_paintings();
+			console.log(JSON.stringify(data));
+		}
+	});
+}
 
-function save_car()
+function save_painting()
 {
 	
-	car_from_server.make=document.forms[0].make.value;
-	car_from_server.model=document.forms[0].model.value;
-	car_from_server.series=document.forms[0].series.value;
-	car_from_server.year=document.forms[0].year.value;
+	painting_from_server.author=document.forms[0].author.value;
+	painting_from_server.artname=document.forms[0].artname.value;
+	painting_from_server.techniques=document.forms[0].techniques.value;
+	painting_from_server.year=document.forms[0].year.value;
 		
-var jsonData = JSON.stringify(car_from_server); 
+var jsonData = JSON.stringify(painting_from_server); 
 $.ajaxSetup({ cache: false });
 $.ajax({
 
-    url: 'service/car/' + car_from_server.id ,
+    url: 'service/painting/' + painting_from_server.id ,
     type: "POST",
     data: jsonData,
     dataType: 'json',
@@ -79,45 +94,70 @@ $.ajax({
 }
 
 
-
-
-
-
-function display_car(car)
+function add_painting()
 {
-	 var out_data="";
-	 out_data = out_data + "<table bgcolor=eeeeee><tr><td>Muutmine. Auto id: <b>" + car.id + "</b></td></tr>";
-
-		out_data = out_data + "<tr><td>Mark:</td><td><input type=text name=make value='" + car.make + "'></td></tr>";
-		out_data = out_data + "<tr><td>Mudel:</td><td><input type=text name=model value='" + car.model + "'></td></tr>";
-		out_data = out_data + "<tr><td>Seeria:</td><td><input type=text name=series value='" + car.series + "'></td></tr>";
-		out_data = out_data + "<tr><td>Aasta:</td><td><input type=text name=year value='" + car.year + "'></td></tr>";
-		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:save_car()'>Salvesta</button></td>";
-		out_data = out_data + "</table>";
-
-	
-
-	
-	 $("#one_car").html(out_data);
+	var painting_to_server = new Painting();
+	painting_to_server.author=document.forms[0].new_painting_author.value;
+	painting_to_server.artname=document.forms[0].new_painting_artname.value;
+	painting_to_server.techniques=document.forms[0].new_painting_techniques.value;
+	painting_to_server.year=document.forms[0].new_painting_year.value;
+	show_message("ssaa");
+	var jsonData = JSON.stringify(painting_to_server);
+	$.ajaxSetup({ cache: false });
+	$.ajax({
+		url: 'service/painting/' ,
+		type: "PUT",
+		data: jsonData,
+		dataType: 'json',
+		contentType : 'application/json',
+		success: function(data) {
+			show_message("Sisestatud");
+			console.log(JSON.stringify(data));
+			get_paintings();
+ }
+ });
 }
 
 
 
 
-function display_cars(data)
+function display_painting(painting)
+{
+	 var out_data="";
+	 out_data = out_data + "<table bgcolor=eeeeee><tr><td>Muutmine. id: <b>" + painting.id + "</b></td></tr>";
+
+		out_data = out_data + "<tr><td>Autor:</td><td><input type=text name=author value='" + painting.author + "'></td></tr>";
+		out_data = out_data + "<tr><td>Nimi:</td><td><input type=text name=artname value='" + painting.artname + "'></td></tr>";
+		out_data = out_data + "<tr><td>Tehnika:</td><td><input type=text name=techniques value='" + painting.techniques + "'></td></tr>";
+		out_data = out_data + "<tr><td>Aasta:</td><td><input type=text name=year value='" + painting.year + "'></td></tr>";
+		out_data = out_data + "<tr><td><button type='button' class='btn'  onClick='javascript:save_painting()'>Salvesta</button></td>";
+		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:delete_painting(" + painting.id + ")'>Kustuta</button></td></tr>";
+		out_data = out_data + "</table>";
+
+	
+
+	
+	 $("#one_painting").html(out_data);
+}
+
+
+
+
+function display_paintings(data)
 {
 	var out_data="";
-	 out_data = out_data + "<table bgcolor=eeeeee><tr><td colspan=4>Autosid kokku: <b>" + data.length + "</b></td></tr>";
+	 out_data = out_data + "<table bgcolor=eeeeee><tr><td colspan=4>Maale kokku: <b>" + data.length + "</b></td></tr>";
 	 for(var  i in data) {
-   	  var car = data[i];
-		out_data = out_data + "<tr><td>mark:</td><td bgcolor=ffffff>" + car.make + "</td><td>mudel:</td><td bgcolor=ffffff>" + car.model + "</td>";
-		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:get_car(" + car.id + ")'>Vali</button></td>";
+   	  var painting = data[i];
+		out_data = out_data + "<tr><td>autor:</td><td bgcolor=ffffff>" + painting.author + "</td><td>Maali nimi:</td><td bgcolor=ffffff>" + painting.artname + "</td>";
+		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:get_painting(" + painting.id + ")'>Vali</button></td>";
+		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:delete_painting(" + painting.id + ")'>Kustuta</button></td></tr>";
 		
 	 }
 	 out_data = out_data + "</table>";
 
 	
-	 $("#cars_table").html(out_data);
+	 $("#paintings_table").html(out_data);
 }
 
 

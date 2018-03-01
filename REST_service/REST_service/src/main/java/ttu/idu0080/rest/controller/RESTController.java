@@ -33,11 +33,11 @@ public class RESTController {
 	private DataService dataService;
 
 
-	@RequestMapping(value="/service/cars",method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Car> getCars(HttpServletResponse response) throws IOException{
+	@RequestMapping(value="/service/paintings",method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<Painting> getPaintings(HttpServletResponse response) throws IOException{
 		
-		List<Car> cars = dataService.getAllCars();
-		return cars;
+		List<Painting> paintings = dataService.getAllPaintings();
+		return paintings;
 	}
 	
 	

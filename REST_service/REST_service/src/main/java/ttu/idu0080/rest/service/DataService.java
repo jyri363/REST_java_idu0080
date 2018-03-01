@@ -33,27 +33,27 @@ public class DataService  {
 
 
 	
-	public List<Car> getAllCars()  {
+	public List<Painting> getAllPaintings()  {
 
 
-		List<Car> car_list = null;
+		List<Painting> painting_list = null;
 		try {
 
 
 			Query q =  em
 					.createQuery(
-							"select c from Car c ");
-			car_list = (List<Car>)  q.getResultList();
+							"select c from Painting c ");
+			painting_list = (List<Painting>)  q.getResultList();
 
 
 		}
 
 		catch(Exception ex)
 		{
-			System.out.println("DataService.getAllCars():"+ ex.getMessage());
+			System.out.println("DataService.getAllPaintings():"+ ex.getMessage());
 		}
 
-		return car_list;
+		return painting_list;
 	}
 
 	

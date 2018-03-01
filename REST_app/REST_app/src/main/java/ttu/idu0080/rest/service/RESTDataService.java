@@ -15,22 +15,22 @@ public class RESTDataService  {
 
 	
 	
-	public List<Car> getAllCars()  {
+	public List<Painting> getAllPaintings()  {
 		
-		Car[] car_array = null;
+		Painting[] painting_array = null;
 		try
 		{
 			RestTemplate restTemplate = new RestTemplate();
-		car_array = restTemplate.getForObject("http://localhost:8080/REST_service/service/cars", Car[].class) ;
-		System.out.println("Autosid REST-teenusest:" + car_array.length);
+		painting_array = restTemplate.getForObject("http://localhost:8080/REST_service/service/paintings", Painting[].class) ;
+		System.out.println("Autosid REST-teenusest:" + painting_array.length);
 		}
 		catch(Exception ex)
 		{
-			System.out.println("RESTDataService.getAllCars():"+ ex.getMessage());
+			System.out.println("RESTDataService.getAllPaintings():"+ ex.getMessage());
 		}
 
-		List<Car> car_list= Arrays.asList(car_array);
-		return car_list;
+		List<Painting> painting_list= Arrays.asList(painting_array);
+		return painting_list;
 	}
 
 	

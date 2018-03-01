@@ -34,34 +34,54 @@ public class RESTController {
 	@Autowired
 	private RESTDataService restDataService;
 
-	@RequestMapping(value="/service/cars",method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Car> getCars(HttpServletResponse response) throws IOException{
+	@RequestMapping(value="/service/paintings",method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<Painting> getPaintings(HttpServletResponse response) throws IOException{
 		
-		List<Car> cars = dataService.getAllCars();
-		return cars;
+		List<Painting> paintings = dataService.getAllPaintings();
+		return paintings;
 	}
 	
-	@RequestMapping(value="/service/car/{id}",method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Car getCar(@PathVariable int id) throws IOException{
+	@RequestMapping(value="/service/painting/{id}",method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Painting getPainting(@PathVariable int id) throws IOException{
 		
-		Car car = dataService.getCarById(id);
-		return car;
+		Painting painting = dataService.getPaintingById(id);
+		return painting;
 	}
 	
 	@Transactional
-	@RequestMapping(value = "/service/car/{id}", method=RequestMethod.POST)
-	public @ResponseBody void updateCar(@RequestBody Car car)
+	@RequestMapping(value = "/service/painting/{id}", method=RequestMethod.POST)
+	public @ResponseBody void updatePainting(@RequestBody Painting painting)
 	{
-		dataService.update(car);
+		dataService.update(painting);
 		
 	}
 	
+	@Transactional
+	@RequestMapping(value = "/service/painting/{id}", method=RequestMethod.DELETE)
+	public @ResponseBody void deletePainting(@PathVariable int id)
+	{
+		dataService.delete(id);
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/service/painting/", method=RequestMethod.PUT)
+	public @ResponseBody void insertPainting(@RequestBody Painting painting)
+	{
+		dataService.save(painting);
+	}
 	
 	
-	@RequestMapping(value="/service/external/cars",method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Car> getExternalCars(HttpServletResponse response) throws IOException{
-		List<Car> cars = restDataService.getAllCars();
-		return cars;
+	@RequestMapping(value="/service/search",method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<Painting> searchPaintings(@RequestParam(value = "author") String author) throws IOException
+	{
+		List<Painting> paintings= dataService.searchByAuthor(author);
+		return paintings;
+	}
+	
+	@RequestMapping(value="/service/external/paintings",method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<Painting> getExternalPaintings(HttpServletResponse response) throws IOException{
+		List<Painting> paintings = restDataService.getAllPaintings();
+		return paintings;
 	}
 	
 
